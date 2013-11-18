@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<rosetta>
+    <glyph2 phrase="open"><![CDATA[
+ webdriver.open("{{ 0 }}");
+ ]]></glyph>
+</rosetta>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="jSoup" default="default" basedir=".">
+    <description>Builds, tests, and runs the project jSoup.</description>
+    <import file="nbproject/build-impl.xml" />
+	<!--
+    Set project properties
+    -->
+    <property name="libs" location="${basedir}/libs"/>
+    <property name="src" location="${basedir}/src"/>
+    <property name="test" location="${basedir}/test"/>
+    <property name="bin" location="${basedir}/build"/>
+	<property name="bin.src" location="${bin}/classes"/>
+	<property name="bin.test" location="${bin}/test/classes"/>
+    <property name="test.reports" location="${bin}/reports"/>
+    <!--
+    Cleanup previous builds
+    -->
+    <target name="init">
+		<echo>cleaning old files</echo>
+        <tstamp/>
+        <delete dir="${bin}" />
+        <delete dir="${test.reports}" />
+        <mkdir dir="${bin}"/>
+		<mkdir dir="${bin.src}"/>
+		<mkdir dir="${bin.test}"/>
+        <mkdir dir="${test.reports}"/>
+    </target>
+    <!-- 
+    create the libs classpath 
+    -->
+    <path id="libs-classpath" description="classpath to libs">
+        <pathelement path="${bin.src}"/>
+        <pathelement path="${bin.test}"/>
+        <fileset dir="${libs}">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+    <!-- 
+    run junit 
+    -->
+    <target name="junit-batch" depends="compile-src">
+		<echo>running junit batch tests</echo>
+        <junit  fork="true"
+                forkmode="perTest"
+                haltonfailure="false"
+                haltonerror="true"
+                failureproperty="tests.failures"
+                errorproperty="tests.errors"
+                includeantruntime="true"
+                showoutput="true"
+                printsummary="true">
+            <classpath>
+                <path refid="libs-classpath"/>
+            </classpath>
+            <batchtest fork="yes" todir="${test.reports}">  
+                <formatter type="xml" />
+                <fileset dir="${test}">  
+                    <include name="**/*Test*.java" />  
+                </fileset>  
+            </batchtest>
+        </junit>
+    </target>
+    <!-- 
+        creates a combine junit report
+    -->
+    <target name="junit" depends="junit-batch">
+	<echo>running junitreport batch results</echo>
+        <junitreport tofile="TESTS-CombinedReports.xml" todir="${test.reports}">  
+            <fileset dir="${test.reports}">  
+                <include name="*TEST*.xml" /> 
+                <exclude name="TESTS-CombinedReports.xml" />
+            </fileset>  
+            <report format="noframes" todir="${test.reports}" />  
+        </junitreport>
+    </target>
+    <!-- 
+        compile the tests 
+    -->
+    <target name="compile-src" depends="init">
+		<echo>compiling src and tests to classes</echo>
+        <javac fork="true" srcdir="${src}" destdir="${bin.src}" includes="**/*.java">
+            <classpath refid="libs-classpath"/>
+        </javac>
+		<javac fork="true" srcdir="${test}" destdir="${bin.test}" includes="**/*.java">
+            <classpath refid="libs-classpath"/>
+        </javac>
+    </target>
+    
+</project>

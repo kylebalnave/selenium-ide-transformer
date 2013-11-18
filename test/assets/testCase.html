@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="https://www.google.co.uk/" />
+<title>testCase</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">testCase</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/?gws_rd=cr&amp;ei=nwaFUoKnCaKV0AW8m4D4DQ</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=gbqfq</td>
+	<td>hello</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=gbqfq</td>
+	<td>hello world</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=gbqfb</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Hello world program - Wikipedia, the free encyclopedia</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=li.toclevel-1.tocsection-4 &gt; a &gt; span.toctext</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>
+
+<!--
+	<ideToMap>
+		<map id="open" assertParamCount="1"><![CDATA[
+			webdriver.open("%s");
+		]]></map>
+		<map id="type" assertParamCount="2"><![CDATA[
+			webdriver.focus("%s");
+			webdriver.type("%s");
+		]]></map>
+		<map id="click" assertParamCount="1"><![CDATA[
+			webdriver.focus("%s");
+			webdriver.click();
+		]]></map>
+		<map id="clickAndWait" assertParamCount="1"><![CDATA[
+			webdriver.focus("%s");
+			webdriver.click();
+			webdriver.waitFroPageLoad();
+		]]></map>
+	</ideToMap>
+
+-->

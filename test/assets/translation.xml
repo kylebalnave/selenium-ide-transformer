@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<rosetta>
+    <glyph phrase="driver"><![CDATA[{{ driver.type }}]]></glyph>
+    <glyph phrase="open"><![CDATA[
+ //webdriver.open("{{ 0 }}");
+ ]]></glyph>
+    <glyph phrase="type"><![CDATA[
+ //webdriver.focus("{{ 0 }}");
+ //webdriver.type("{{ 1 }}");
+ ]]></glyph>
+    <glyph phrase="click"><![CDATA[
+ //webdriver.focus("{{ 0 }}");
+ //webdriver.click();
+ ]]></glyph>
+    <glyph phrase="clickAndWait"><![CDATA[
+ //webdriver.focus("{{ 0 }}");
+ //webdriver.click();
+ //webdriver.waitFroPageLoad();
+ ]]></glyph>
+    <glyph phrase="jUnitTemplate"><![CDATA[
+package generated;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+public class {{ 0 }} {
+
+    @BeforeClass
+    public static void setUpClass() {}
+
+    @AfterClass
+    public static void tearDownClass() {}
+
+    @Before
+    public void setUp() {}
+
+    @After
+    public void tearDown() {}
+    
+    @Test
+    public void testSeleniumIDETest() {
+        {{ 1 }}
+        fail("This test should fail!:)");
+    }
+}
+ ]]></glyph>
+</rosetta>
