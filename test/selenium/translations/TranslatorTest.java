@@ -1,6 +1,14 @@
-package translation;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package selenium.translations;
 
 import exception.TranslationException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -13,24 +21,22 @@ import static org.junit.Assert.*;
  * @author kyleb2
  */
 public class TranslatorTest {
-
+    
     public TranslatorTest() {
     }
-
+    
     @BeforeClass
     public static void setUpClass() {
-        String workingDir = System.getProperty("user.dir");
-        System.out.println("Current working directory : " + workingDir);
     }
-
+    
     @AfterClass
     public static void tearDownClass() {
     }
-
+    
     @Before
     public void setUp() {
     }
-
+    
     @After
     public void tearDown() {
     }
@@ -41,11 +47,12 @@ public class TranslatorTest {
     @Test
     public void testGetTranslatedList() {
         try {
-            Translator translator = new Translator("./test/assets/translation.xml", "./test/assets/testCase.html", "./test/generated/SeleniumIdeTestCase.java");
+            Translator translator = new Translator("./test/assets/java.webdriver.xml", "./test/assets/testCase.html");
             assertTrue(true);
         } catch (TranslationException ex) {
-            fail("An exception should not have been thrown " + ex.toString());
+            Logger.getLogger(TranslatorTest.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
 
+    }
+    
 }

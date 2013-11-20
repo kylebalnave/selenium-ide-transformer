@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Contains transform information to convert Selenium IDE output to Java WebDriver
+-->
+<rosetta>
+    <!--
+        Re-usable mappings can be used within glyphs to reference other glyphs
+    -->
+    <glyph id="driver.className">FirefoxDriver</glyph>
+    <glyph id="driver.import">import org.openqa.selenium.firefox.FirefoxDriver;</glyph>
+    <glyph id="driver.waitTimeMs">1000</glyph>
+    <glyph id="utils.selector">Selectors.selectBy</glyph>
+    <!--
+        Standard actions
+    -->
+    <glyph id="print"><![CDATA[System.out.println({{ 1 }});]]></glyph>
+    <glyph id="pause"><![CDATA[try { Thread.sleep({{ driver.waitTimeMs }}); } catch (Exception e) { throw new RuntimeException(e); }]]></glyph>
+    <glyph id="get"><![CDATA[wd.get("{{ 1 }}");]]></glyph>
+    <glyph id="goBack"><![CDATA[wd.navigate().back();]]></glyph>
+    <glyph id="goForward"><![CDATA[wd.navigate().forward();]]></glyph>
+    <glyph id="clickElement"><![CDATA[wd.findElement({{ utils.selector }}("{{ 1 }}")).click();]]></glyph>
+    <glyph id="setElementText"><![CDATA[
+        wd.findElement({{ utils.selector }}("{{ 1 }}")).click();
+        wd.findElement({{ utils.selector }}("{{ 1 }}")).clear();
+        wd.findElement({{ utils.selector }}("{{ 1 }}")).sendKeys("{{ 2 }}");
+    ]]></glyph>
+    <glyph id="sendKeysToElement"><![CDATA[
+        wd.findElement({{ utils.selector }}("{{ 1 }}")).click();
+        wd.findElement({{ utils.selector }}("{{ 1 }}")).sendKeys("{{ 2 }}");
+    ]]></glyph>
+    <glyph id="setElementSelected"><![CDATA[
+        if (!wd.findElement({{ utils.selector }}("{{ 1 }}")).isSelected()) {
+            wd.findElement({{ utils.selector }}("{{ 1 }}")).click();
+        }
+    ]]></glyph>
+    <glyph id="setElementNotSelected"><![CDATA[
+        if (wd.findElement({{ utils.selector }}("{{ 1 }}")).isSelected()) {
+            wd.findElement({{ utils.selector }}("{{ 1 }}")).click();
+        }
+    ]]></glyph>
+    <glyph id="doubleClickElement"><![CDATA[
+        new Actions(wd).doubleClick(wd.findElement({{ utils.selector }}("{{ 1 }}"))).build().perform();
+    ]]></glyph>
+    <glyph id="mouseOverElement"><![CDATA[
+        new Actions(wd).moveToElement(wd.findElement({{ utils.selector }}("{{ 1 }}"))).build().perform();
+    ]]></glyph>
+    <glyph id="dragToAndDropElement"><![CDATA[
+        new Actions(wd).dragAndDrop(wd.findElement({{ utils.selector }}("{{ 1 }}")), wd.findElement({{ utils.selector }}("{{ 2 }}"))).build().perform();
+    ]]></glyph>
+    <glyph id="clickAndHoldElement"><![CDATA[
+        new Actions(wd).clickAndHold(wd.findElement({{ utils.selector }}("{{ 1 }}"))).build().perform();
+    ]]></glyph>
+    <glyph id="releaseElement"><![CDATA[
+        new Actions(wd).release(wd.findElement({{ utils.selector }}("{{ 1 }}"))).build().perform();
+    ]]></glyph>
+    <glyph id="clearSelections"><![CDATA[
+        new Select(wd.findElement({{ utils.selector }}("{{ 1 }}"))).deselectAll();
+    ]]></glyph>
+    <glyph id="submitElement"><![CDATA[
+        wd.findElement(wd.findElement({{ utils.selector }}("{{ 1 }}"))).submit();
+    ]]></glyph>
+    <glyph id="close"><![CDATA[wd.close();]]></glyph>
+    <glyph id="refresh"><![CDATA[wd.navigate().refresh();]]></glyph>
+    <glyph id="addCookie"><![CDATA[
+        Cookie cookie = new Cookie.Builder("{{ 1 }}", "{{ 2 }}");
+        wd.manage().addCookie(cookie);
+    ]]></glyph>
+    <glyph id="deleteCookie"><![CDATA[
+        Cookie cookie = wd.manage().getCookieNamed("{{ 1 }}");
+        if (cookie != null) { 
+            wd.manage().deleteCookie(cookie);
+        }
+    ]]></glyph>
+    <!--
+        Assertions
+    -->
+    <glyph id="assertTextPresent"><![CDATA[
+        assertTrue(wd.findElement(By.tagName("html")).getText().contains("{{ 1 }}"));   
+    ]]></glyph>
+    <glyph id="assertBodyText"><![CDATA[
+        assertTrue(wd.findElement(By.tagName("html")).getText().equals("{{ 1 }}")); 
+    ]]></glyph>
+    <glyph id="assertElementPresent"><![CDATA[
+        assertTrue(wd.findElements({{ utils.selector }}("{{ 1 }}").size() > 0);
+    ]]></glyph>
+    <glyph id="assertPageSource"><![CDATA[
+        assertTrue(wd.getPageSource().equals("{{ 1 }}")); 
+    ]]></glyph>
+    <glyph id="assertText"><![CDATA[
+        assertTrue(wd.findElement({{ utils.selector }}("{{ 1 }}").getText().equals("{{ 2 }}"));
+    ]]></glyph>
+    <glyph id="assertCurrentUrl"><![CDATA[
+        assertTrue(wd.getCurrentUrl().equals({{ 1 }}));
+    ]]></glyph>
+    <glyph id="assertTitle"><![CDATA[
+        assertTrue(wd.getTitle().equals({{ 1 }}));
+    ]]></glyph>
+    <glyph id="assertElementSelected"><![CDATA[
+        assertTrue(wd.findElement({{ utils.selector }}("{{ 1 }}").isSelected());
+    ]]></glyph>
+    <glyph id="assertElementValue"><![CDATA[
+        assertTrue(wd.findElement({{ utils.selector }}("{{ 1 }}").getAttribute("value").equals("{{ 3 }}"));
+    ]]></glyph>
+    <glyph id="assertElementAttribute"><![CDATA[
+        assertTrue(wd.findElement({{ utils.selector }}("{{ 1 }}").getAttribute("{{ 2 }}").equals("{{ 3 }}"));
+    ]]></glyph>
+    <glyph id="assertCookieByName"><![CDATA[
+        assertTrue(({{ 2 }}).equals(wd.manage().getCookieNamed({{ 1 }}).getValue()));
+    ]]></glyph>
+    <glyph id="assertCookiePresent"><![CDATA[
+        assertFalse(wd.manage().getCookieNamed({{ 1 }}) == null);
+    ]]></glyph>
+    <!-- 
+        Advanced Features
+    -->
+    <glyph id="saveScreenshot"><![CDATA[
+        wd.getScreenshotAs(FILE).renameTo(new File({{ 1 }}));
+    ]]></glyph>
+    <glyph id="switchToFrame"><![CDATA[
+        wd = ({{ driver.className }}) wd.switchTo().frame("{{ 1 }}");
+    ]]></glyph>
+    <glyph id="switchToFrameByIndex"><![CDATA[
+        wd = ({{ driver.className }}) wd.switchTo().frame({{ 1 }});
+    ]]></glyph>
+    <glyph id="switchToWindow"><![CDATA[
+        wd = ({{ driver.className }}) wd.switchTo().window("{{ 1 }}");
+    ]]></glyph>
+    <glyph id="switchToDefaultContent"><![CDATA[
+        wd = ({{ driver.className }}) wd.switchTo().switchToDefaultContent();
+    ]]></glyph>
+    <!--
+        Required Nodes to construct the finished file
+    -->
+    <glyph id="template-file"><![CDATA[
+
+        import org.junit.After;
+        import org.junit.AfterClass;
+        import org.junit.Before;
+        import org.junit.BeforeClass;
+        import org.junit.Test;
+        import static org.junit.Assert.*;
+        
+        {{ driver.import }}
+        import java.util.concurrent.TimeUnit;
+        import java.util.Date; 
+        import java.io.File;
+        import org.openqa.selenium.support.ui.Select;
+        import org.openqa.selenium.interactions.Actions;
+        import org.openqa.selenium.firefox.FirefoxDriver;
+        import org.openqa.selenium.*;
+        import static org.openqa.selenium.OutputType.*;
+        
+        import selenium.utils.Selectors;
+
+        public class {{ 1 }} {
+        
+            @BeforeClass
+            public static void setUpClass() {}
+
+            @AfterClass
+            public static void tearDownClass() {}
+
+            @Before
+            public void setUp() {}
+
+            @After
+            public void tearDown() {}
+
+            @Test
+            public void testSeleniumIDETest() {
+                {{ driver.className }} wd = new {{ driver.className }}();
+                {{ 2 }}
+                wd.close();
+            }
+        }        
+        
+    ]]></glyph>
+</rosetta>
