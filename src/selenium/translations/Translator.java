@@ -67,6 +67,8 @@ public final class Translator {
         boolean out = IO.toFile(translateAction(templateAction, translatorMap), fOut.getAbsolutePath());
         if (!out) {
             throw new TranslationException(String.format("Cannot save translation out to file! Is the path correct? %s", fOut.getAbsolutePath()));
+        } else {
+            System.out.println(String.format("File transformed to %s", fOut.getAbsolutePath()));
         }
     }
 

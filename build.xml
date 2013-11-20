@@ -2,27 +2,27 @@
 <project name="jSoup" default="default" basedir=".">
     <description>Builds, tests, and runs the project jSoup.</description>
     <import file="nbproject/build-impl.xml" />
-	<!--
+    <!--
     Set project properties
     -->
     <property name="libs" location="${basedir}/libs"/>
     <property name="src" location="${basedir}/src"/>
     <property name="test" location="${basedir}/test"/>
     <property name="bin" location="${basedir}/build"/>
-	<property name="bin.src" location="${bin}/classes"/>
-	<property name="bin.test" location="${bin}/test/classes"/>
+    <property name="bin.src" location="${bin}/classes"/>
+    <property name="bin.test" location="${bin}/test/classes"/>
     <property name="test.reports" location="${bin}/reports"/>
     <!--
     Cleanup previous builds
     -->
     <target name="init">
-		<echo>cleaning old files</echo>
+        <echo>cleaning old files</echo>
         <tstamp/>
         <delete dir="${bin}" />
         <delete dir="${test.reports}" />
         <mkdir dir="${bin}"/>
-		<mkdir dir="${bin.src}"/>
-		<mkdir dir="${bin.test}"/>
+        <mkdir dir="${bin.src}"/>
+        <mkdir dir="${bin.test}"/>
         <mkdir dir="${test.reports}"/>
     </target>
     <!-- 
@@ -39,7 +39,7 @@
     run junit 
     -->
     <target name="junit-batch" depends="compile-src">
-		<echo>running junit batch tests</echo>
+        <echo>running junit batch tests</echo>
         <junit  fork="true"
                 forkmode="perTest"
                 haltonfailure="false"
@@ -64,7 +64,7 @@
         creates a combine junit report
     -->
     <target name="junit" depends="junit-batch">
-	<echo>running junitreport batch results</echo>
+        <echo>running junitreport batch results</echo>
         <junitreport tofile="TESTS-CombinedReports.xml" todir="${test.reports}">  
             <fileset dir="${test.reports}">  
                 <include name="*TEST*.xml" /> 
@@ -77,13 +77,21 @@
         compile the tests 
     -->
     <target name="compile-src" depends="init">
-		<echo>compiling src and tests to classes</echo>
+        <echo>compiling src and tests to classes</echo>
         <javac fork="true" srcdir="${src}" destdir="${bin.src}" includes="**/*.java">
             <classpath refid="libs-classpath"/>
         </javac>
-		<javac fork="true" srcdir="${test}" destdir="${bin.test}" includes="**/*.java">
+        <javac fork="true" srcdir="${test}" destdir="${bin.test}" includes="**/*.java">
             <classpath refid="libs-classpath"/>
         </javac>
+    </target>
+    
+    <!-- 
+        test the conversion process
+    -->
+    <target name="test-taskdef" depends="compile-src">
+        <taskdef name="side-transform" classname="ant.SeleniumTransformTask" classpathref="libs-classpath" />
+        <side-transform transformer="./test/assets/java.webdriver.xml" testcase="./test/assets/testCase.html" />
     </target>
     
 </project>

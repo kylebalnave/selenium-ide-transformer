@@ -1,41 +1,50 @@
-package assets;
-import org.junit.After;
-import org.junit.AfterClass;
-import static org.junit.Assert.fail;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class TestCasetestCase {
 
-    @BeforeClass
-    public static void setUpClass() {
-    }
+        import org.junit.After;
+        import org.junit.AfterClass;
+        import org.junit.Before;
+        import org.junit.BeforeClass;
+        import org.junit.Test;
+        import static org.junit.Assert.*;
+        
+        import org.openqa.selenium.firefox.FirefoxDriver;
+        import java.util.concurrent.TimeUnit;
+        import java.util.Date; 
+        import java.io.File;
+        import org.openqa.selenium.support.ui.Select;
+        import org.openqa.selenium.interactions.Actions;
+        import org.openqa.selenium.firefox.FirefoxDriver;
+        import org.openqa.selenium.*;
+        import static org.openqa.selenium.OutputType.*;
+        
+        import selenium.utils.Selectors;
 
-    @AfterClass
-    public static void tearDownClass() {
-    }
+        public class TestCasetestCase {
+        
+            @BeforeClass
+            public static void setUpClass() {}
 
-    @Before
-    public void setUp() {
-    }
+            @AfterClass
+            public static void tearDownClass() {}
 
-    @After
-    public void tearDown() {
-    }
+            @Before
+            public void setUp() {}
 
-    @Test
-    public void testSeleniumIDETest() {
-        FirefoxDriver wd = new FirefoxDriver();
-        wd.get("http://www.google.com");
+            @After
+            public void tearDown() {}
+
+            @Test
+            public void testSeleniumIDETest() {
+                FirefoxDriver wd = new FirefoxDriver();
+                
 // open missing translation!
 // type missing translation!
 // type missing translation!
 // click missing translation!
 // clickAndWait missing translation!
 // click missing translation!
-        wd.close();
-        fail("This selenium WebDriver test should fail!");
-    }
-}
+                wd.close();
+            }
+        }        
+        
+    
