@@ -148,6 +148,7 @@ public final class Translator {
         if (args.length == 0) {
             return src;
         }
+        Properties sysProps = System.getProperties();
         // replace number values with standard args
         Pattern numPattern = Pattern.compile("\\{\\{ ([0-9a-zA-Z\\.-_]+) \\}\\}");
         Matcher numMatcher = numPattern.matcher(src);
@@ -164,6 +165,8 @@ public final class Translator {
                 }
             } else if (translatorMap.containsKey(paramName)) {
                 src = src.replace(fullMatch, (String) translatorMap.get(paramName));
+            } else if (sysProps.containsKey(paramName)){
+                src = src.replace(fullMatch, (String) sysProps.get(paramName));
             } else {
                 src = src.replace(fullMatch, String.format("/* unknown ref %s */", paramName));
             }
