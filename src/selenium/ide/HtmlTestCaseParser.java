@@ -1,4 +1,4 @@
-package jsoup.parser;
+package selenium.ide;
 
 import exception.ParseException;
 import java.io.File;
@@ -18,13 +18,13 @@ import org.jsoup.select.Elements;
  *
  * @author kyleb2
  */
-public final class SeleniumTestCase {
+public final class HtmlTestCaseParser {
     
     Document doc;
 
-    public SeleniumTestCase(String urlOrFilePath) throws ParseException {
+    public HtmlTestCaseParser(String urlOrFilePath) throws ParseException {
         try {
-            if (SeleniumTestCase.isWebUrl(urlOrFilePath)) {
+            if (isWebUrl(urlOrFilePath)) {
                 doc = Jsoup.connect(urlOrFilePath).get();
             } else {
                 // assume file System
@@ -42,17 +42,13 @@ public final class SeleniumTestCase {
      * Parses the table and creates a map of all the Selenium IDE actions
      * @return 
      */
-    public List<List<String>> parse() {
-        List<List<String>> resultList = new ArrayList<>();
+    public List<TestCaseAction> parse() {
+        List<TestCaseAction> resultList = new ArrayList();
         Element $table = doc.select("table").first();
         Elements $tRows = $table.select("tbody > tr");
         for(Element $row : $tRows) {
             Elements $columns = $row.select("td");
-            List<String> rowParams = new ArrayList<>();
-            rowParams.add($columns.get(0).html());
-            rowParams.add($columns.get(1).html());
-            rowParams.add($columns.get(2).html());
-            resultList.add(rowParams);
+            resultList.add(new TestCaseAction($columns.get(0).html(), $columns.get(1).html(), $columns.get(2).html()));
         }
         return resultList;
     }
@@ -63,7 +59,7 @@ public final class SeleniumTestCase {
      * @param urlOrFilePath
      * @return
      */
-    public static boolean isWebUrl(String urlOrFilePath) {
+    private boolean isWebUrl(String urlOrFilePath) {
         Pattern regex = Pattern.compile("http://|https://|www.");
         Matcher regexMatcher = regex.matcher(urlOrFilePath);
         return regexMatcher.find();

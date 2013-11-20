@@ -1,23 +1,23 @@
 <?xml version="1.0"?>
 <rosetta>
-    <glyph phrase="driver"><![CDATA[{{ driver.type }}]]></glyph>
-    <glyph phrase="open"><![CDATA[
+    <glyph id="driver"><![CDATA[{{ driver.type }}]]></glyph>
+    <glyph id="open"><![CDATA[
  //webdriver.open("{{ 0 }}");
  ]]></glyph>
-    <glyph phrase="type"><![CDATA[
+    <glyph id="type"><![CDATA[
  //webdriver.focus("{{ 0 }}");
  //webdriver.type("{{ 1 }}");
  ]]></glyph>
-    <glyph phrase="click"><![CDATA[
+    <glyph id="click"><![CDATA[
  //webdriver.focus("{{ 0 }}");
  //webdriver.click();
  ]]></glyph>
-    <glyph phrase="clickAndWait"><![CDATA[
+    <glyph id="clickAndWait"><![CDATA[
  //webdriver.focus("{{ 0 }}");
  //webdriver.click();
  //webdriver.waitFroPageLoad();
  ]]></glyph>
-    <glyph phrase="jUnitTemplate"><![CDATA[
+    <glyph id="jUnitTemplate"><![CDATA[
 package generated;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
